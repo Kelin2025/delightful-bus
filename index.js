@@ -16,7 +16,7 @@ export default function Eventbus(eventsList) {
    * @param {function} cb Callback
    * @returns Emitter instance or instance with binded emitter
    */
-  this.on = (evt, cb) => {
+  this.on = function(evt, cb) {
     if (evt in eventsList) {
       eventsList[evt] = eventsList[evt].concat(cb)
     } else {
@@ -31,7 +31,7 @@ export default function Eventbus(eventsList) {
    * @param {function} cb Callback
    * @returns Emitter instance or instance with binded emitter
    */
-  this.off = (evt, cb) => {
+  this.off = function(evt, cb) {
     if (!(evt in eventsList)) return this
     const idx = eventsList[evt].indexOf(cb)
     if (idx !== -1) eventsList[evt].splice(idx, 1)
@@ -42,7 +42,7 @@ export default function Eventbus(eventsList) {
    * Unbind all event listeners
    * @returns Emitter instance or instance with binded emitter
    */
-  this.offAll = () => {
+  this.offAll = function() {
     eventsList = {}
     return this
   }
@@ -63,7 +63,9 @@ export default function Eventbus(eventsList) {
    * @param {Object} events Object with listeners lists (`eventName: [cb1, cb2]`)
    * @returns Instance
    */
-  this.onMany = events => send(events)(this)
+  this.onMany = function(events) {
+    return send(events)(this)
+  }
 
   /**
    * Shares own events with another bus and returns that bus
