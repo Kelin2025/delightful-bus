@@ -1,12 +1,17 @@
 {
   "name": "delightful-bus",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "scripts": {
     "size": "size-limit",
     "prepublish": "npm run size"
   },
-  "size-limit": [{ "path": "index.js", "limit": "500 B" }],
+  "size-limit": [
+    {
+      "path": "index.js",
+      "limit": "500 B"
+    }
+  ],
   "devDependencies": {
     "size-limit": "^0.17.0"
   }
