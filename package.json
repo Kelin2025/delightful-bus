@@ -6,7 +6,7 @@
     "size": "size-limit",
     "prepublish": "npm run size"
   },
-  "size-limit": [{ "path": "index.js", "limit": "300 B" }],
+  "size-limit": [{ "path": "index.js", "limit": "500 B" }],
   "devDependencies": {
     "size-limit": "^0.17.0"
   }
