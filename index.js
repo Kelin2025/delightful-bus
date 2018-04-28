@@ -1,4 +1,4 @@
-export const inject = events => to => {
+export const send = events => to => {
   Object.keys(events).forEach(evt => {
     events[evt].forEach(cb => to.on(evt, cb))
   })
@@ -63,14 +63,14 @@ export default function Eventbus(eventsList, instance) {
    * @param {Object} events Object with listeners lists (`eventName: [cb1, cb2]`)
    * @returns Instance
    */
-  this.onMany = events => inject(events)(this)
+  this.onMany = events => send(events)(this)
 
   /**
    * Shares own events with another bus and returns that bus
    * @param {Eventbus} bus Target event bus
    * @returns {Eventbus} Target event bus
    */
-  this.inject = inject(this.events)
+  this.sendTo = send(this.events)
 
   /**
    * Creates a copy of Eventbus
@@ -91,7 +91,7 @@ export default function Eventbus(eventsList, instance) {
    * @param {Object} newInstance Target object
    * @returns {Object} Target object
    */
-  this.sendTo = newInstance => {
+  this.injectTo = newInstance => {
     const fork = this.fork(newInstance)
     newInstance.on = fork.on
     newInstance.emit = fork.emit
