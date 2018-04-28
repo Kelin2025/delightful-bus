@@ -55,7 +55,7 @@ export default function Eventbus(eventsList) {
    */
   this.emit = function(evt) {
     if (!(evt in eventsList)) return
-    eventsList[evt].forEach(cb => cb([].slice.call(arguments, 1)))
+    eventsList[evt].forEach(cb => cb.apply(cb, [].slice.call(arguments, 1)))
   }
 
   /**
