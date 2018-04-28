@@ -92,10 +92,8 @@ export default function Eventbus(eventsList, instance) {
    * @returns {Object} Target object
    */
   this.injectTo = newInstance => {
-    const fork = this.fork(newInstance)
-    newInstance.on = fork.on
-    newInstance.emit = fork.emit
-    newInstance.events = fork.events
+    newInstance.on = this.on
+    newInstance.emit = this.emit
     return newInstance
   }
 }
