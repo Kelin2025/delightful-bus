@@ -38,7 +38,7 @@ bus.emit("foo", "bar")
 // => nothing because listener is removed
 ```
 
-## More fun`
+## More fun
 
 ##### `.onMany(events)` - add many events
 
