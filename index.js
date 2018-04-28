@@ -39,6 +39,15 @@ export default function Eventbus(eventsList, instance) {
   }
 
   /**
+   * Unbind all event listeners
+   * @returns Emitter instance or instance with binded emitter
+   */
+  this.offAll = () => {
+    this.events = {}
+    return instance
+  }
+
+  /**
    * Emits event
    * @param {String} evt Event name
    * @param {...*} arguments Arguments list
