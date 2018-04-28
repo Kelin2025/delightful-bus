@@ -87,7 +87,7 @@ export default function Eventbus(eventsList, instance) {
   this.merge = bus => this.fork().onMany(bus.events)
 
   /**
-   * Adds `.on` and `.emit` methods to object
+   * Adds `.on` and `.emit` methods and events list to object
    * @param {Object} newInstance Target object
    * @returns {Object} Target object
    */
@@ -95,5 +95,7 @@ export default function Eventbus(eventsList, instance) {
     const fork = this.fork(newInstance)
     newInstance.on = fork.on
     newInstance.emit = fork.emit
+    newInstance.events = fork.events
+    return newInstance
   }
 }
