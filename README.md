@@ -43,7 +43,7 @@ bus.emit("foo", "bar")
 ##### `.onMany(events)` - add many events
 
 ```javascript
-bus.on({
+bus.onMany({
   foo: [cb1, cb2],
   bar: [cb3]
 })
