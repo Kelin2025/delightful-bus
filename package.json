@@ -1,6 +1,6 @@
 {
   "name": "delightful-bus",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "module": "index.js",
   "main": "index.cjs.js",
   "license": "MIT",
