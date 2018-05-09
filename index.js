@@ -39,7 +39,7 @@ export default function Eventbus(eventsList) {
       self.off(evt, selfDesctructable)
     }
 
-    return this.on(evt, selfDesctructable)
+    return self.on(evt, selfDesctructable)
   }
 
   /**
