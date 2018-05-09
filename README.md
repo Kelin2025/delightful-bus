@@ -29,6 +29,18 @@ bus.on("foo", console.log)
 // => bar baz (According to previous example)
 ```
 
+##### `.once(evt, cb)` - add self-destructable event listener
+
+```javascript
+bus.once("foo", console.log)
+
+bus.emit("foo", "bar", "baz")
+// => bar baz
+
+bus.emit("foo", "bar", "baz")
+// => nothing (event was removed)
+```
+
 ##### `.off(evt, cb)` - remove event listener
 
 ```javascript

@@ -26,6 +26,23 @@ export default function Eventbus(eventsList) {
   }
 
   /**
+   * Adds event listener that will be removed after emit
+   * @param {String} evt Event name
+   * @param {function} cb Callback
+   * @returns Emitter instance or instance with binded emitter
+   */
+  this.once = (evt, cb) => {
+    const self = this
+
+    const selfDesctructable = function() {
+      cb.apply(cb, arguments)
+      self.off(evt, selfDesctructable)
+    }
+
+    return this.on(evt, selfDesctructable)
+  }
+
+  /**
    * Unbind event listener
    * @param {String} evt Event name
    * @param {function} cb Callback
@@ -101,13 +118,14 @@ export default function Eventbus(eventsList) {
   this.merge = bus => this.fork().onMany(eventsList)
 
   /**
-   * Adds `.on`, `.off`, `.onMany`, `.offMany`, `.offAll` and `.emit` methods to object
+   * Adds `.on`, `.once`, `.off`, `.onMany`, `.offMany`, `.offAll` and `.emit` methods to object
    * @param {Object} newInstance Target object
    * @returns {Object} Target object
    */
   this.injectTo = newInstance => {
     newInstance.on = this.on
     newInstance.off = this.off
+    newInstance.once = this.once
     newInstance.emit = this.emit
     newInstance.onMany = this.onMany
     newInstance.offAll = this.offAll
@@ -116,13 +134,14 @@ export default function Eventbus(eventsList) {
   }
 
   /**
-   * Adds `.on`, `.off` methods to object
+   * Adds `.on`, `.once` and `.off` methods to object
    * @param {Object} newInstance Target object
    * @returns {Object} Target object
    */
   this.injectObserverTo = newInstance => {
     newInstance.on = this.on
     newInstance.off = this.off
+    newInstance.once = this.once
     return newInstance
   }
 }
