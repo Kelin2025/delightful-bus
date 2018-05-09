@@ -31,7 +31,7 @@ export default function Eventbus(eventsList) {
    * @param {function} cb Callback
    * @returns Emitter instance or instance with binded emitter
    */
-  this.once = (evt, cb) => {
+  this.once = function(evt, cb) {
     const self = this
 
     const selfDesctructable = function() {
