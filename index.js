@@ -68,6 +68,19 @@ export default function Eventbus(eventsList) {
   }
 
   /**
+   * Removes list of event listeners
+   * @param {Object} events Object with listeners list (`eventName: [cb1, cb2]`)
+   * @returns Instance
+   */
+  this.offMany = function(events) {
+    Object.keys(events).forEach(evt => {
+      events[evt].forEach(cb => {
+        this.off(evt, cb)
+      })
+    })
+  }
+
+  /**
    * Shares own events with another bus and returns that bus
    * @param {Eventbus} bus Target event bus
    * @returns {Eventbus} Target event bus
@@ -88,13 +101,28 @@ export default function Eventbus(eventsList) {
   this.merge = bus => this.fork().onMany(eventsList)
 
   /**
-   * Adds `.on` and `.emit` methods and events list to object
+   * Adds `.on`, `.off`, `.onMany`, `.offMany`, `.offAll` and `.emit` methods to object
    * @param {Object} newInstance Target object
    * @returns {Object} Target object
    */
   this.injectTo = newInstance => {
     newInstance.on = this.on
+    newInstance.off = this.off
     newInstance.emit = this.emit
+    newInstance.onMany = this.onMany
+    newInstance.offAll = this.offAll
+    newInstance.offMany = this.offMany
+    return newInstance
+  }
+
+  /**
+   * Adds `.on`, `.off` methods to object
+   * @param {Object} newInstance Target object
+   * @returns {Object} Target object
+   */
+  this.injectObserver = newInstance => {
+    newInstance.on = this.on
+    newInstance.off = this.off
     return newInstance
   }
 }
