@@ -1,10 +1,13 @@
 {
   "name": "delightful-bus",
   "version": "0.6.0",
+  "module": "index.js",
+  "main": "index.cjs.js",
   "license": "MIT",
   "scripts": {
     "size": "size-limit",
-    "prepublish": "npm run size"
+    "build": "babel index.js --out-file index.cjs.js",
+    "prepublish": "npm run build && npm run size"
   },
   "size-limit": [
     {
@@ -13,6 +16,12 @@
     }
   ],
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.4.0",
+    "babel-plugin-nanoutils": "^0.1.1",
+    "babel-plugin-transform-flow-comments": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
     "size-limit": "^0.17.0"
   }
 }
