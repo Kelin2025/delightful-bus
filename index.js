@@ -120,7 +120,7 @@ export default function Eventbus(eventsList) {
    * @param {Object} newInstance Target object
    * @returns {Object} Target object
    */
-  this.injectObserver = newInstance => {
+  this.injectObserverTo = newInstance => {
     newInstance.on = this.on
     newInstance.off = this.off
     return newInstance

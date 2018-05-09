@@ -114,7 +114,7 @@ bus2.emit("ccc", "bar")
 // => nothing (it's a fork)
 ```
 
-##### `.inject(instance)` - adds `.on` and `.emit` methods of forked bus to some instance
+##### `.injectTo(instance)` - adds `.on`, `.off`, `.onMany`, `.offMany`, `.offAll` and `.emit` methods of forked bus to some instance
 
 ```javascript
 const smth = {}
@@ -123,6 +123,30 @@ const bus = new Eventbus()
 bus.on("test", console.log)
 
 bus.injectTo(smth)
+smth.on("foo", console.log)
+smth.emit("foo", "bar")
+// => bar
+
+bus.emit("test", "bar")
+// => bar (inherited from bus)
+
+bus.on("test", console.log)
+smth.emit("test", "bar")
+// => nothing (it's a fork)
+
+bus.emit("foo", "bar")
+// => nothing (it's a fork)
+```
+
+##### `.injectObserverTo(newInstance)` - adds only `.on` and `.off` methods
+
+```javascript
+const smth = {}
+
+const bus = new Eventbus()
+bus.on("test", console.log)
+
+bus.injectObserverTo(smth)
 smth.on("foo", console.log)
 smth.emit("foo", "bar")
 // => bar
