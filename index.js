@@ -33,10 +33,14 @@ export default function Eventbus(eventsList) {
    */
   this.once = function(evt, cb) {
     const self = this
+    let isCalled = false
 
     const selfDesctructable = function() {
-      cb.apply(cb, arguments)
-      self.off(evt, selfDesctructable)
+      if (!isCalled) {
+        isCalled = true
+        cb.apply(cb, arguments)
+      }
+      // self.off(evt, selfDesctructable)
     }
 
     return self.on(evt, selfDesctructable)
